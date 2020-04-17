@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coronatracker/models/corona_by_country.dart';
 import 'package:coronatracker/screens/faq_screen.dart';
+import 'package:coronatracker/screens/india_stats_screen.dart';
+import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,22 +17,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
   String today = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
   CoronaByCountry _indiaStats;
 
   Future<CoronaByCountry> _getLiveIndiaStats() async {
-    var client=http.Client();
-    var url="https://api.covid19api.com/live/country/india";
-    var resp=await client.get(url);
-    Iterable i=jsonDecode(resp.body);
-    List<CoronaByCountry> list=i.map((c)=>CoronaByCountry.fromJson(c)).toList();
+    var client = http.Client();
+    var url = "https://api.covid19api.com/live/country/india";
+    var resp = await client.get(url);
+    Iterable i = jsonDecode(resp.body);
+    List<CoronaByCountry> list =
+        i.map((c) => CoronaByCountry.fromJson(c)).toList();
     setState(() {
-      _indiaStats=list[list.length-1];
+      _indiaStats = list[list.length - 1];
     });
-    return list[list.length-1];
+    return list[list.length - 1];
   }
 
   @override
@@ -41,28 +42,26 @@ class _HomeScreenState extends State<HomeScreen> {
     _getLiveIndiaStats();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    final height=MediaQuery.of(context).size.height/3.5;
-    final width=MediaQuery.of(context).size.width/3.5;
+    final height = MediaQuery.of(context).size.height / 3.5;
+    final width = MediaQuery.of(context).size.width / 3.5;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "CORONA TRACKER",
-            style: GoogleFonts.poppins(
+          "CORONA TRACKER",
+          style: GoogleFonts.poppins(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
               color: Colors.black87,
-              letterSpacing: 2
-            ),
+              letterSpacing: 2),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
             Container(
@@ -79,77 +78,73 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 140.0,
                   items: <Widget>[
                     Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))
-                      ),
-                      elevation: 15.0,
-                      color: Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                "assets/images/stay-home.png",
-                                fit: BoxFit.cover,
-                                height: 120.0,
-                                width: 80.0,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    "COVID-19",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.white,
-                                        letterSpacing: 2
-                                    ),
-                                    textAlign: TextAlign.end,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        elevation: 15.0,
+                        color: Colors.red,
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    "assets/images/stay-home.png",
+                                    fit: BoxFit.cover,
+                                    height: 120.0,
+                                    width: 80.0,
                                   ),
-                                  Text(
-                                    "caused by coronavirus",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.white
-                                    ),
-                                    textAlign: TextAlign.end,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                        "COVID-19",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.white,
+                                            letterSpacing: 2),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                      Text(
+                                        "caused by coronavirus",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.white),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        "#StayHome#StaySafe",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14.0,
+                                            color: Colors.white),
+                                        textAlign: TextAlign.start,
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(height: 5.0,),
-                                  Text(
-                                    "#StayHome#StaySafe",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14.0,
-                                        color: Colors.white
-                                    ),
-                                    textAlign: TextAlign.start,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      )
-                    ),
-
+                                )
+                              ],
+                            ))),
                     Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
                         elevation: 15.0,
                         color: Colors.blueAccent,
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -174,8 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white,
-                                            letterSpacing: 2
-                                        ),
+                                            letterSpacing: 2),
                                         textAlign: TextAlign.end,
                                       ),
                                       Text(
@@ -183,18 +177,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: GoogleFonts.poppins(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w900,
-                                            color: Colors.white
-                                        ),
+                                            color: Colors.white),
                                         textAlign: TextAlign.end,
                                       ),
-                                      SizedBox(height: 5.0,),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           "Wash your hands \nevery 20 minutes",
                                           style: GoogleFonts.poppins(
                                               fontSize: 14.0,
-                                              color: Colors.white
-                                          ),
+                                              color: Colors.white),
                                           textAlign: TextAlign.start,
                                           softWrap: true,
                                         ),
@@ -203,19 +197,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )
                               ],
-                            )
-                        )
-                    ),
-
+                            ))),
                     Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
                         elevation: 15.0,
                         color: Colors.deepOrange,
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -240,8 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white,
-                                            letterSpacing: 2
-                                        ),
+                                            letterSpacing: 2),
                                         textAlign: TextAlign.end,
                                       ),
                                       Text(
@@ -249,18 +239,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: GoogleFonts.poppins(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w900,
-                                            color: Colors.white
-                                        ),
+                                            color: Colors.white),
                                         textAlign: TextAlign.end,
                                       ),
-                                      SizedBox(height: 5.0,),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           "Have fever ?\nConsult your doctor",
                                           style: GoogleFonts.poppins(
                                               fontSize: 14.0,
-                                              color: Colors.white
-                                          ),
+                                              color: Colors.white),
                                           textAlign: TextAlign.end,
                                           softWrap: true,
                                         ),
@@ -269,19 +259,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )
                               ],
-                            )
-                        )
-                    ),
-
+                            ))),
                     Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))
-                        ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
                         elevation: 15.0,
                         color: Colors.blueAccent,
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -306,8 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white,
-                                          letterSpacing: 2
-                                        ),
+                                            letterSpacing: 2),
                                         textAlign: TextAlign.end,
                                       ),
                                       Text(
@@ -315,17 +301,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: GoogleFonts.poppins(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w900,
-                                            color: Colors.white
-                                        ),
+                                            color: Colors.white),
                                         textAlign: TextAlign.end,
                                       ),
-                                      SizedBox(height: 5.0,),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           "Cover your mouth\nwhen you cough",
                                           style: GoogleFonts.poppins(
-                                              fontSize: 14.0,
-                                              color: Colors.white,
+                                            fontSize: 14.0,
+                                            color: Colors.white,
                                           ),
                                           textAlign: TextAlign.end,
                                           softWrap: true,
@@ -335,19 +322,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )
                               ],
-                            )
-                        )
-                    ),
-
+                            ))),
                     Card(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20.0))
-                        ),
-                      elevation: 15.0,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        elevation: 15.0,
                         color: Colors.greenAccent,
                         child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child:Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -372,8 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontSize: 22.0,
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white,
-                                            letterSpacing: 2
-                                        ),
+                                            letterSpacing: 2),
                                         textAlign: TextAlign.end,
                                       ),
                                       Text(
@@ -381,18 +364,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: GoogleFonts.poppins(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w900,
-                                            color: Colors.white
-                                        ),
+                                            color: Colors.white),
                                         textAlign: TextAlign.end,
                                       ),
-                                      SizedBox(height: 5.0,),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           "Maintain\nSocial Distancing",
                                           style: GoogleFonts.poppins(
                                               fontSize: 14.0,
-                                              color: Colors.white
-                                          ),
+                                              color: Colors.white),
                                           textAlign: TextAlign.end,
                                           softWrap: true,
                                         ),
@@ -401,9 +384,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 )
                               ],
-                            )
-                        )
-                    ),
+                            ))),
                   ],
                 ),
               ),
@@ -411,25 +392,27 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               color: Colors.white,
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.symmetric(horizontal:16.0),
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     "India",
                     style: GoogleFonts.poppins(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1
-                    ),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1),
                   ),
                   InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>StatsScreen()
+                      ));
+                    },
                     child: Text(
                       "View More",
                       style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 16.0),
                     ),
                   )
                 ],
@@ -445,143 +428,146 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     today,
                     style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.w400
-                    ),
+                        color: Colors.grey,
+                        letterSpacing: 1.2,
+                        fontWeight: FontWeight.w400),
                   ),
                 ),
                 InkWell(
-                    child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Icon(Icons.refresh),
-                ),
-                  onTap: (){
-                      _getLiveIndiaStats();
-                      Fluttertoast.showToast(
-                        msg: "Stats Updated",
-                        toastLength: Toast.LENGTH_LONG
-                      );
-                      print("Updated");
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Icon(Icons.refresh),
+                  ),
+                  onTap: () {
+                    _getLiveIndiaStats();
+                    Fluttertoast.showToast(
+                        msg: "Stats Updated", toastLength: Toast.LENGTH_LONG);
+                    print("Updated");
                   },
                 )
               ],
             ),
             FutureBuilder(
-              future: _getLiveIndiaStats(),
-              builder: (context,snapshot) {
-                if(!snapshot.hasData){
-                  return Center(child: CircularProgressIndicator());
-                }
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                _indiaStats.confirmed.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blueGrey,
-                                    fontSize: 20.0
+                future: _getLiveIndiaStats(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  _indiaStats.confirmed.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blueGrey,
+                                      fontSize: 20.0),
                                 ),
-                              ),
-                              Text(
-                                "Confirmed",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blueGrey,
-                                    fontSize: 16.0
-                                ),
-                              )
-                            ],
+                                Text(
+                                  "Confirmed",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blueGrey,
+                                      fontSize: 16.0),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                _indiaStats.recovered.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.green,
-                                    fontSize: 20.0
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  _indiaStats.recovered.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.green,
+                                      fontSize: 20.0),
                                 ),
-                              ),
-                              Text(
-                                "Recovered",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.green,
-                                    fontSize: 16.0
-                                ),
-                              )
-                            ],
+                                Text(
+                                  "Recovered",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.green,
+                                      fontSize: 16.0),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                _indiaStats.deaths.toString(),
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    fontSize: 20.0
-                                ),
-                              ),
-                              Text(
-                                "Deaths",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    fontSize: 16.0
-                                ),
-                              )
-                            ],
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  _indiaStats.deaths.toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.red,
+                                      fontSize: 20.0),
+                                ),
+                                Text(
+                                  "Deaths",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.red,
+                                      fontSize: 16.0),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+            Container(
+              color: Colors.white,
+              alignment: Alignment.topRight,
+              padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
+              child: Text(
+                "View Global Stats",
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0
+                ),
+              ),
             ),
             Container(
               color: Colors.white,
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
                 "Explore",
                 style: GoogleFonts.poppins(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold
-                ),
+                    fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
@@ -591,26 +577,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16.0,
                 mainAxisSpacing: 16.0,
-                childAspectRatio: height/width,
+                childAspectRatio: height / width,
                 padding: EdgeInsets.all(16.0),
                 children: <Widget>[
                   InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context)=>FAQScreen()
-                      ));
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FAQScreen()));
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))
-                      ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
                       color: Colors.blue,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Image.asset(
                               "assets/images/qa.png",
                               fit: BoxFit.cover,
@@ -620,15 +605,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
                               "FAQs",
                               style: GoogleFonts.catamaran(
-                                fontSize: 20.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              ),
+                                  fontSize: 20.0,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           )
                         ],
@@ -639,14 +623,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       color: Colors.pinkAccent,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0))
-                      ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Image.asset(
                               "assets/images/hand-sanitizer.png",
                               fit: BoxFit.cover,
@@ -656,33 +640,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Hygiene",
                               style: GoogleFonts.catamaran(
                                   fontSize: 20.0,
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),
+                                  color: Colors.white),
                             ),
                           )
                         ],
                       ),
                     ),
                   ),
-                  InkWell( 
-                    child: Card( 
+                  InkWell(
+                    child: Card(
                       color: Colors.lime,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0))
-                      ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:10.0),
+                            padding: const EdgeInsets.only(top: 10.0),
                             child: Image.asset(
                               "assets/images/virus.png",
                               fit: BoxFit.cover,
@@ -692,15 +675,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Covid-19".toUpperCase(),
                               style: GoogleFonts.catamaran(
                                   fontSize: 20.0,
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),
+                                  color: Colors.white),
                             ),
                           )
                         ],
@@ -711,14 +693,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       color: Colors.indigoAccent,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0))
-                      ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:10.0),
+                            padding: const EdgeInsets.only(top: 10.0),
                             child: Image.asset(
                               "assets/images/wizard.png",
                               fit: BoxFit.cover,
@@ -728,15 +710,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Myths",
                               style: GoogleFonts.catamaran(
                                   fontSize: 20.0,
                                   letterSpacing: 1.2,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              ),
+                                  color: Colors.white),
                             ),
                           )
                         ],
