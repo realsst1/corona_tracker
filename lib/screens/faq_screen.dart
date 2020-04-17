@@ -14,7 +14,10 @@ class FAQScreen extends StatelessWidget {
         title: Text(
           "FAQs",
           style: GoogleFonts.poppins(
-              fontWeight: FontWeight.bold, color: Colors.black),
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: 2
+          ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,

@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:coronatracker/models/corona_by_country.dart';
 import 'package:coronatracker/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,16 +20,37 @@ class _HomeScreenState extends State<HomeScreen> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
   String today = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
+  CoronaByCountry _indiaStats;
+
+  Future<CoronaByCountry> _getLiveIndiaStats() async {
+    var client=http.Client();
+    var url="https://api.covid19api.com/live/country/india";
+    var resp=await client.get(url);
+    Iterable i=jsonDecode(resp.body);
+    List<CoronaByCountry> list=i.map((c)=>CoronaByCountry.fromJson(c)).toList();
+    setState(() {
+      _indiaStats=list[list.length-1];
+    });
+    return list[list.length-1];
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getLiveIndiaStats();
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
     final height=MediaQuery.of(context).size.height/3.5;
     final width=MediaQuery.of(context).size.width/3.5;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "COVID-19",
+            "CORONA TRACKER",
             style: GoogleFonts.poppins(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
@@ -408,115 +435,142 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Container(
-              color: Colors.white,
-              alignment: Alignment.topLeft,
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                today,
-                style: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.w400
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    today,
+                    style: GoogleFonts.poppins(
+                      color: Colors.grey,
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
                 ),
-              ),
+                InkWell(
+                    child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(Icons.refresh),
+                ),
+                  onTap: (){
+                      _getLiveIndiaStats();
+                      Fluttertoast.showToast(
+                        msg: "Stats Updated",
+                        toastLength: Toast.LENGTH_LONG
+                      );
+                      print("Updated");
+                  },
+                )
+              ],
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal:8.0),
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Card(
-                    shape:RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "12000",
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.blueGrey,
-                              fontSize: 20.0
-                            ),
+            FutureBuilder(
+              future: _getLiveIndiaStats(),
+              builder: (context,snapshot) {
+                if(!snapshot.hasData){
+                  return Center(child: CircularProgressIndicator());
+                }
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _indiaStats.confirmed.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueGrey,
+                                    fontSize: 20.0
+                                ),
+                              ),
+                              Text(
+                                "Confirmed",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueGrey,
+                                    fontSize: 16.0
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            "Confirmed",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blueGrey,
-                                fontSize: 16.0
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _indiaStats.recovered.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green,
+                                    fontSize: 20.0
+                                ),
+                              ),
+                              Text(
+                                "Recovered",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green,
+                                    fontSize: 16.0
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _indiaStats.deaths.toString(),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                    fontSize: 20.0
+                                ),
+                              ),
+                              Text(
+                                "Deaths",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                    fontSize: 16.0
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  Card(
-                    shape:RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "12000",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.green,
-                                fontSize: 20.0
-                            ),
-                          ),
-                          Text(
-                            "Recovered",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.green,
-                                fontSize: 16.0
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Card(
-                    shape:RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "12000",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red,
-                                fontSize: 20.0
-                            ),
-                          ),
-                          Text(
-                            "Deaths",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red,
-                                fontSize: 16.0
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                );
+              }
             ),
             Container(
               color: Colors.white,
