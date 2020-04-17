@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:coronatracker/screens/faq_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -539,128 +540,153 @@ class _HomeScreenState extends State<HomeScreen> {
                 childAspectRatio: height/width,
                 padding: EdgeInsets.all(16.0),
                 children: <Widget>[
-                  Card(
-                    color: Colors.blue,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Image.asset(
-                            "assets/images/qa.png",
-                            fit: BoxFit.cover,
-                            width: 50.0,
-                            height: 50.0,
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Text(
-                            "FAQs",
-                            style: GoogleFonts.catamaran(
-                              fontSize: 20.0,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>FAQScreen()
+                      ));
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      ),
+                      color: Colors.blue,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Image.asset(
+                              "assets/images/qa.png",
+                              fit: BoxFit.cover,
+                              width: 50.0,
+                              height: 50.0,
+                              alignment: Alignment.topRight,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Card(
-                    color: Colors.redAccent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Image.asset(
-                            "assets/images/hand-sanitizer.png",
-                            fit: BoxFit.cover,
-                            width: 50.0,
-                            height: 50.0,
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Text(
-                            "Hygiene",
-                            style: GoogleFonts.catamaran(
-                                fontSize: 20.0,
-                                letterSpacing: 1,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Card(
-                    color: Colors.blue,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Image.asset(
-                            "assets/images/virus.png",
-                            fit: BoxFit.cover,
-                            width: 50.0,
-                            height: 50.0,
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Text(
-                            "Covid-19".toUpperCase(),
-                            style: GoogleFonts.catamaran(
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Text(
+                              "FAQs",
+                              style: GoogleFonts.catamaran(
                                 fontSize: 20.0,
                                 letterSpacing: 1.2,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  Card(
-                    color: Colors.blue,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Image.asset(
-                            "assets/images/wizard.png",
-                            fit: BoxFit.cover,
-                            width: 50.0,
-                            height: 50.0,
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top:8.0),
-                          child: Text(
-                            "Myths",
-                            style: GoogleFonts.catamaran(
-                                fontSize: 20.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
+                  InkWell(
+                    child: Card(
+                      color: Colors.pinkAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Image.asset(
+                              "assets/images/hand-sanitizer.png",
+                              fit: BoxFit.cover,
+                              width: 50.0,
+                              height: 50.0,
+                              alignment: Alignment.topRight,
                             ),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Text(
+                              "Hygiene",
+                              style: GoogleFonts.catamaran(
+                                  fontSize: 20.0,
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell( 
+                    child: Card( 
+                      color: Colors.lime,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top:10.0),
+                            child: Image.asset(
+                              "assets/images/virus.png",
+                              fit: BoxFit.cover,
+                              width: 50.0,
+                              height: 50.0,
+                              alignment: Alignment.topRight,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Text(
+                              "Covid-19".toUpperCase(),
+                              style: GoogleFonts.catamaran(
+                                  fontSize: 20.0,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    child: Card(
+                      color: Colors.indigoAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top:10.0),
+                            child: Image.asset(
+                              "assets/images/wizard.png",
+                              fit: BoxFit.cover,
+                              width: 50.0,
+                              height: 50.0,
+                              alignment: Alignment.topRight,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Text(
+                              "Myths",
+                              style: GoogleFonts.catamaran(
+                                  fontSize: 20.0,
+                                  letterSpacing: 1.2,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
