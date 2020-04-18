@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coronatracker/models/corona_by_country.dart';
 import 'package:coronatracker/screens/faq_screen.dart';
 import 'package:coronatracker/screens/global_stats_screen.dart';
+import 'package:coronatracker/screens/hygiene_screen.dart';
 import 'package:coronatracker/screens/india_stats_screen.dart';
 import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
@@ -626,6 +627,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HygieneScreen()));
+                    },
                     child: Card(
                       color: Colors.pinkAccent,
                       shape: RoundedRectangleBorder(
@@ -648,7 +652,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              "Hygiene",
+                              "Handwash",
                               style: GoogleFonts.catamaran(
                                   fontSize: 20.0,
                                   letterSpacing: 1,
