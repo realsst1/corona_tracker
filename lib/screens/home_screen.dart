@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:coronatracker/models/corona_by_country.dart';
 import 'package:coronatracker/screens/faq_screen.dart';
+import 'package:coronatracker/screens/global_stats_screen.dart';
 import 'package:coronatracker/screens/india_stats_screen.dart';
 import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
@@ -548,15 +549,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 }),
-            Container(
-              color: Colors.white,
-              alignment: Alignment.topRight,
-              padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
-              child: Text(
-                "View Global Stats",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>GlobalStatsScreen()));
+              },
+              child: Container(
+                color: Colors.white,
+                alignment: Alignment.topRight,
+                padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
+                child: Text(
+                  "View Global Stats",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0
+                  ),
                 ),
               ),
             ),
