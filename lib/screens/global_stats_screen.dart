@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:coronatracker/models/data_point.dart';
 import 'package:coronatracker/models/global_stats_model.dart';
+import 'package:coronatracker/widgets/datapoint_chart.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +17,8 @@ class GlobalStatsScreen extends StatefulWidget {
 
 class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
   static GlobalStatsModel _statsModel;
-  List totalCases=[];
+  List totalCases = [];
+  List<DataPoint> _dataPoints = [];
 
   Future<void> _getGlobalStats() async {
     var client = http.Client();
@@ -23,22 +26,13 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
     var resp = await client.get(url);
     var val = jsonDecode(resp.body);
     GlobalStatsModel model = GlobalStatsModel.fromJson(val);
-    print(model.global.totalConfirmed);
     setState(() {
       _statsModel = model;
       totalCases.add(model.global.totalConfirmed);
     });
   }
 
-  static var data = [
-    DataPoint("Confirmed", _statsModel.global.totalConfirmed, Colors.blueGrey),
-    DataPoint("Recovered", _statsModel.global.totalRecovered, Colors.green),
-    DataPoint("Deaths", _statsModel.global.totalDeaths, Colors.green),
-  ];
-
-  var series = [
-
-  ];
+  var series = [];
 
   @override
   void initState() {
@@ -115,9 +109,19 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
           totalCases.add(country.totalConfirmed);
         });
       }
-
       setState(() {
         totalCases.sort();
+      });
+
+      int c = 0;
+
+      setState(() {
+        for (var point in _statsModel.countries) {
+          _dataPoints.add(DataPoint(point.country, point.totalConfirmed,
+              charts.ColorUtil.fromDartColor(Colors.blue)));
+        }
+        _dataPoints.sort((a, b) => b.totalCases.compareTo(a.totalCases));
+        _dataPoints = _dataPoints.sublist(1, 5);
       });
 
       return SingleChildScrollView(
@@ -157,37 +161,62 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
                     child: CircularProgressIndicator(),
                   )
                 : Container(
+                    padding: EdgeInsets.all(8.0),
                     color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: PieChart(
-                        dataMap: {
-                          "Total Confirmed":
-                              _statsModel.global.totalConfirmed.toDouble(),
-                          "Total Recovered":
-                              _statsModel.global.totalRecovered.toDouble(),
-                          "Total Deaths":
-                              _statsModel.global.totalDeaths.toDouble()
-                        },
-                        chartType: ChartType.disc,
-                        animationDuration: Duration(milliseconds: 800),
-                        colorList: [
-                          Colors.blue,
-                          Colors.green,
-                          Colors.redAccent
-                        ],
-                        showChartValues: true,
+                    child: Card(
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0))
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: PieChart(
+                          dataMap: {
+                            "Total Confirmed":
+                                _statsModel.global.totalConfirmed.toDouble(),
+                            "Total Recovered":
+                                _statsModel.global.totalRecovered.toDouble(),
+                            "Total Deaths":
+                                _statsModel.global.totalDeaths.toDouble()
+                          },
+                          chartType: ChartType.disc,
+                          animationDuration: Duration(milliseconds: 800),
+                          colorList: [
+                            Colors.blue,
+                            Colors.green,
+                            Colors.redAccent
+                          ],
+                          showChartValues: true,
+                        ),
                       ),
                     ),
                   ),
             Container(
               color: Colors.white,
-              child:Card(
+              padding: EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 10.0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                ),
-
-              ) ,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                child: _dataPoints.length == 0
+                    ? CircularProgressIndicator()
+                    : SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                height: MediaQuery.of(context).size.height / 2,
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DataPointChart(_dataPoints),
+                                )),
+                          ),
+                        ),
+                      ),
+              ),
             ),
             Container(
               color: Colors.white,
@@ -209,13 +238,4 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
       ),
     );
   }
-}
-
-class DataPoint {
-  String countryName;
-  int totalCases;
-  charts.Color color;
-
-  DataPoint(this.countryName, this.totalCases, Color color);
-
 }
