@@ -352,7 +352,8 @@ class _IndiaStatsScreenState extends State<IndiaStatsScreen> {
                     color: Colors.black,
                     fontSize: 18.0),
               ),
-              numeric: false),
+              numeric: false,
+          ),
           DataColumn(
               label: Text(
                 "Confirmed",

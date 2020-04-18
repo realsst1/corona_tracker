@@ -61,7 +61,20 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
                   fontSize: 14.0,
                   color: Colors.blueGrey),
             ),
-            numeric: true),
+            numeric: true,
+            onSort: (index,asc){
+              if(asc){
+                setState(() {
+                  _statsModel.countries.sort((a,b)=>b.totalConfirmed.compareTo(a.totalConfirmed));
+                });
+              }
+              else if(!asc){
+                setState(() {
+                  _statsModel.countries.reversed.toList();
+                });
+              }
+            }
+        ),
         DataColumn(
             label: Text(
               "Recovered",
@@ -128,6 +141,8 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           columns: cols,
+          sortColumnIndex: 1,
+          sortAscending: false,
           rows: rows,
           columnSpacing: 1,
         ),
