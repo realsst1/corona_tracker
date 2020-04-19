@@ -1,11 +1,11 @@
 # coronatracker
 
-Corona Tracker and Information app using Flutter
+Corona Tracker and Information app using Flutter.
 
 # Features
 - Live Stats for India
-- India statewise data
-- Global stats with charts for good visual experience
+- Live India statewise data
+- Live Global stats with charts for good visual experience
 - FAQs for correct information
 - Myths Buster to stay away from misinformation
 - Directly call or email India Helpline
