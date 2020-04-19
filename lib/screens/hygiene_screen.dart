@@ -54,21 +54,24 @@ class _HygieneScreenState extends State<HygieneScreen> {
         child: Card(
           child: Column(
             children: <Widget>[
-              YoutubePlayer(
-                controller: _youtubePlayerController,
-                showVideoProgressIndicator: true,
-                bottomActions: <Widget>[
-                  CurrentPosition(),
-                  ProgressBar(isExpanded: true),
-                  FullScreenButton(controller: _youtubePlayerController,)
-                ],
-                onReady: (){
-                  _youtubePlayerController.play();
-                },
-                onEnded: (metaData){
-                  _youtubePlayerController.seekTo(Duration(milliseconds: 0));
-                  _youtubePlayerController.pause();
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: YoutubePlayer(
+                  controller: _youtubePlayerController,
+                  showVideoProgressIndicator: true,
+                  bottomActions: <Widget>[
+                    CurrentPosition(),
+                    ProgressBar(isExpanded: true),
+                    FullScreenButton(controller: _youtubePlayerController,)
+                  ],
+                  onReady: (){
+                    _youtubePlayerController.play();
+                  },
+                  onEnded: (metaData){
+                    _youtubePlayerController.seekTo(Duration(milliseconds: 0));
+                    _youtubePlayerController.pause();
+                  },
+                ),
               ),
               SizedBox(height: 5.0,),
               Container(

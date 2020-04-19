@@ -6,6 +6,7 @@ import 'package:coronatracker/screens/faq_screen.dart';
 import 'package:coronatracker/screens/global_stats_screen.dart';
 import 'package:coronatracker/screens/hygiene_screen.dart';
 import 'package:coronatracker/screens/india_stats_screen.dart';
+import 'package:coronatracker/screens/myths_page.dart';
 import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -700,6 +701,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>MythsScreen()));
+                    },
                     child: Card(
                       color: Colors.indigoAccent,
                       shape: RoundedRectangleBorder(
