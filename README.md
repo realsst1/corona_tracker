@@ -1,6 +1,6 @@
 # coronatracker
 
-Corona Tracker using Flutter
+Corona Tracker and Information app using Flutter
 
 # Features
 - Live Stats for India
