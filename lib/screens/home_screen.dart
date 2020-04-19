@@ -9,6 +9,7 @@ import 'package:coronatracker/screens/india_stats_screen.dart';
 import 'package:coronatracker/screens/myths_page.dart';
 import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -62,6 +63,35 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
+      ),
+      floatingActionButton: SpeedDial(
+        marginRight: 18,
+        marginBottom: 20,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 20),
+        visible: true,
+        closeManually: false,
+        curve: Curves.bounceIn,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.5,
+        elevation: 8.0,
+        tooltip: 'Speed Dial',
+        heroTag: 'speed-dial-hero-tag',
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        shape: CircleBorder(),
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.email),
+            label: "Email Helpline",
+            onTap: (){}
+          ),
+          SpeedDialChild(
+              child: Icon(Icons.phone),
+              label: "Call Helpline",
+              onTap: (){}
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
