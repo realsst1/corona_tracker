@@ -14,6 +14,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -84,12 +85,26 @@ class _HomeScreenState extends State<HomeScreen> {
           SpeedDialChild(
             child: Icon(Icons.email),
             label: "Email Helpline",
-            onTap: (){}
+            onTap: ()async{
+              if(await canLaunch("mailto:ncov2019@gov.in?subject=COVID-19 Help&body=''")){
+                await launch("mailto:ncov2019@gov.in?subject=COVID-19 Help&body=''");
+              }
+              else{
+                throw 'Could not launch';
+              }
+            }
           ),
           SpeedDialChild(
               child: Icon(Icons.phone),
               label: "Call Helpline",
-              onTap: (){}
+              onTap: ()async{
+                if(await canLaunch("tel:1075")){
+                  await launch("tel:1075");
+                }
+                else{
+                  throw 'Could not call';
+                }
+              }
           ),
         ],
       ),
