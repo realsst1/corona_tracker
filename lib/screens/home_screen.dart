@@ -7,6 +7,7 @@ import 'package:coronatracker/screens/global_stats_screen.dart';
 import 'package:coronatracker/screens/hygiene_screen.dart';
 import 'package:coronatracker/screens/india_stats_screen.dart';
 import 'package:coronatracker/screens/myths_page.dart';
+import 'package:coronatracker/screens/self_test_screen.dart';
 import 'package:coronatracker/screens/stats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -711,6 +712,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SelfTestScreen()));
+                    },
                     child: Card(
                       color: Colors.lime,
                       shape: RoundedRectangleBorder(
@@ -733,7 +737,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              "Covid-19".toUpperCase(),
+                              "Self Test",
                               style: GoogleFonts.catamaran(
                                   fontSize: 20.0,
                                   letterSpacing: 1.2,
