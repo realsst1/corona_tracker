@@ -110,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

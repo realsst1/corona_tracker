@@ -235,7 +235,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal:10.0,vertical: 8.0),
                               child: Text(
-                                "This is subject to error and just gives a possiblity of COVID-19. Please contact your doctor if you are feeling unwell.",
+                                "*This is subject to error and just gives a possiblity of COVID-19. Please contact your doctor if you are feeling unwell.",
                                 style: GoogleFonts.poppins(
                                   color: Colors.grey,
                                 ),
@@ -548,6 +548,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                       ),
                     ),
                     borderSide: BorderSide(color: Colors.blue),
+                    color: Colors.white,
                     onPressed: () {
                       if (_buttonText == "Check Results") {
                         if (_radioValue1 != -1 &&
@@ -567,12 +568,12 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                           _yesCount = _yesCount + _radioValue7;
                           _yesCount = _yesCount + _radioValue8;
                           var res = _yesCount / 16;
-                          if (res >= 0.85) {
+                          if (res >= 0.75) {
                             setState(() {
                               _color = Colors.red;
                               _result = "You have high chances of COVID-19";
                             });
-                          } else if (res >= 0.5 && res < 0.85) {
+                          } else if (res >= 0.4 && res < 0.75) {
                             setState(() {
                               _color = Colors.orange;
                               _result = "You have moderate chances of COVID-19";
