@@ -199,11 +199,52 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
               ),
               _isTestCompleted
                   ? Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(8.0),
-                      color: _color,
-                      child: Text(_result),
+                      padding: EdgeInsets.symmetric(horizontal:16.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0))
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:10.0),
+                              child: Text(
+                                "COVID-19 Risk*:",
+                                style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 24.0,
+                                  letterSpacing: 1.4
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:10.0),
+                              child: Text(
+                                _result,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: _color
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:10.0,vertical: 8.0),
+                              child: Text(
+                                "This is subject to error and just gives a possiblity of COVID-19. Please contact your doctor if you are feeling unwell.",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.grey,
+                                ),
+                                textAlign: TextAlign.justify,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     )
                   : Container(
                       height: 670.0,
