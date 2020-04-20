@@ -10,3 +10,4 @@ Corona Tracker and Information app using Flutter.
 - Myths Buster to stay away from misinformation
 - Directly call or email India Helpline
 - Learn to wash your hands-the right way with a video
+- Self Test for getting an idea about possibility of being affected by COVID-19
