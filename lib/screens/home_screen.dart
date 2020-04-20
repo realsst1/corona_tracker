@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-  String today = DateFormat("dd-MM-yyyy").format(DateTime.now());
+  String _today = DateFormat("dd-MM-yyyy HH:mm:ss").format(DateTime.now());
 
   CoronaByCountry _indiaStats;
 
@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         i.map((c) => CoronaByCountry.fromJson(c)).toList();
     setState(() {
       _indiaStats = list[list.length - 1];
+      //_today=DateFormat("dd-MM-yyyy HH:mm:ss").format(DateTime.now());
     });
     return list[list.length - 1];
   }
@@ -475,7 +476,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   alignment: Alignment.topLeft,
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    today,
+                    "Last updated "+_today,
                     style: GoogleFonts.poppins(
                         color: Colors.grey,
                         letterSpacing: 1.2,
@@ -489,6 +490,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onTap: () {
                     _getLiveIndiaStats();
+                    setState(() {
+                      _today=DateFormat("dd-MM-yyyy HH:mm:ss").format(DateTime.now());
+                    });
                     Fluttertoast.showToast(
                         msg: "Stats Updated", toastLength: Toast.LENGTH_LONG);
                     print("Updated");
