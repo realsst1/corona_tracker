@@ -259,7 +259,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ListView(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: AlwaysScrollableScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               children: <Widget>[
                                 Container(
