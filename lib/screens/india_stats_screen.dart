@@ -335,6 +335,8 @@ class _IndiaStatsScreenState extends State<IndiaStatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var b=MediaQuery.of(context).platformBrightness;
+    bool isDark=b==Brightness.dark;
     return _isLoading?Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(child: CircularProgressIndicator()),
@@ -349,7 +351,7 @@ class _IndiaStatsScreenState extends State<IndiaStatsScreen> {
                 "State",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color:isDark?Colors.white: Colors.black,
                     fontSize: 18.0),
               ),
               numeric: false,

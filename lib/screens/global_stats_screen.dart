@@ -41,7 +41,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
     _getGlobalStats();
   }
 
-  Widget _globalTable() {
+  Widget _globalTable(bool isDark) {
     if (_statsModel != null) {
       List<DataColumn> cols = [
         DataColumn(
@@ -50,7 +50,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
               style: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                   fontSize: 14.0,
-                  color: Colors.black),
+                  color: isDark?Colors.white: Colors.black),
             ),
             numeric: false),
         DataColumn(
@@ -251,7 +251,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
             Container(
               color: isDark?Colors.black87:Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: _globalTable(),
+              child: _globalTable(isDark),
             )
           ],
         ),

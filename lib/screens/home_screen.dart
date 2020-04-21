@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "assets/images/stay-home.png",
                                     fit: BoxFit.cover,
                                     height: 120.0,
-                                    width: 80.0,
+                                    width: 70.0,
                                   ),
                                 ),
                                 Padding(
@@ -170,6 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
                                       Text(
                                         "COVID-19",
@@ -192,11 +193,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 5.0,
                                       ),
                                       Text(
-                                        "#StayHome#StaySafe",
+                                        "#StayHome\n#StaySafe",
                                         style: GoogleFonts.poppins(
                                             fontSize: 14.0,
                                             color: Colors.white),
                                         textAlign: TextAlign.start,
+                                        softWrap: true,
                                       )
                                     ],
                                   ),
@@ -221,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "assets/images/alcohol.png",
                                     fit: BoxFit.cover,
                                     height: 120.0,
-                                    width: 80.0,
+                                    width: 70.0,
                                   ),
                                 ),
                                 Padding(
@@ -237,6 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontWeight: FontWeight.w900,
                                             color: Colors.white,
                                             letterSpacing: 2),
+                                        softWrap: true,
                                         textAlign: TextAlign.end,
                                       ),
                                       Text(
@@ -283,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "assets/images/fever.png",
                                     fit: BoxFit.cover,
                                     height: 120.0,
-                                    width: 80.0,
+                                    width: 70.0,
                                   ),
                                 ),
                                 Padding(
@@ -345,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "assets/images/cough.png",
                                     fit: BoxFit.cover,
                                     height: 120.0,
-                                    width: 80.0,
+                                    width: 70.0,
                                   ),
                                 ),
                                 Padding(
@@ -409,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "assets/images/hand.png",
                                     fit: BoxFit.cover,
                                     height: 120.0,
-                                    width: 100.0,
+                                    width: 70.0,
                                   ),
                                 ),
                                 Padding(
