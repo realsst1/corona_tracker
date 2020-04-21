@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var brightness=MediaQuery.of(context).platformBrightness;
     bool isDark=brightness==Brightness.dark;
 
-    final height = MediaQuery.of(context).size.height / 3.5;
+    final height = MediaQuery.of(context).size.height / 5.5;
     final width = MediaQuery.of(context).size.width / 3.5;
     return Scaffold(
       appBar: AppBar(
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   autoPlayAnimationDuration: Duration(milliseconds: 500),
                   initialPage: 0,
                   autoPlayCurve: Curves.easeInExpo,
-                  enlargeCenterPage: true,
+                  //enlargeCenterPage: true,
                   height: 140.0,
                   items: <Widget>[
                     Card(
@@ -396,8 +396,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 BorderRadius.all(Radius.circular(20.0))),
                         elevation: 15.0,
                         color: Colors.greenAccent,
-                        child: Padding(
+                        child: Container(
                             padding: const EdgeInsets.all(8.0),
+                            width: MediaQuery.of(context).size.width,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -530,7 +531,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     color: isDark?Colors.black87:Colors.white,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Card(
@@ -548,14 +549,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.blueGrey,
-                                      fontSize: 20.0),
+                                      fontSize: 16.0),
                                 ),
                                 Text(
                                   "Confirmed",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.blueGrey,
-                                      fontSize: 16.0),
+                                      fontSize: 12.0),
                                 )
                               ],
                             ),
@@ -576,14 +577,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.green,
-                                      fontSize: 20.0),
+                                      fontSize: 16.0),
                                 ),
                                 Text(
                                   "Recovered",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.green,
-                                      fontSize: 16.0),
+                                      fontSize: 12.0),
                                 )
                               ],
                             ),
@@ -604,14 +605,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.red,
-                                      fontSize: 20.0),
+                                      fontSize: 16.0),
                                 ),
                                 Text(
                                   "Deaths",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.red,
-                                      fontSize: 16.0),
+                                      fontSize: 12.0),
                                 )
                               ],
                             ),
@@ -650,10 +651,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              height: 260.0,
+              height: MediaQuery.of(context).size.height*0.45,
               color: isDark?Colors.black87:Colors.white,
               child: GridView.count(
                 crossAxisCount: 2,
+                physics: NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 16.0,
                 mainAxisSpacing: 16.0,
                 childAspectRatio: height / width,

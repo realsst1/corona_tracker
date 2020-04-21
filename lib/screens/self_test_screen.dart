@@ -175,12 +175,12 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(8.0),
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,7 +203,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                   ? Container(
                       height: MediaQuery.of(context).size.height * 0.25,
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(horizontal:16.0),
+                      padding: EdgeInsets.symmetric(horizontal:8.0),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0))
@@ -249,9 +249,9 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                       ),
                     )
                   : Container(
-                      height: 670.0,
+                      height: MediaQuery.of(context).size.height,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius:
