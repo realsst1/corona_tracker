@@ -15,6 +15,16 @@ class _MyAppState extends State<MyApp> {
       title: "Corona Tracker",
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.blue,
+        accentColor: Colors.blueAccent
+      ),
+      darkTheme:ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.indigo,
+        accentColor: Colors.indigoAccent
+      )
     );
   }
 }

@@ -149,15 +149,17 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var b=MediaQuery.of(context).platformBrightness;
+    bool isDark=b==Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black54:Colors.white,
         title: Text(
           "Self Test",
-          style: GoogleFonts.poppins(letterSpacing: 2, color: Colors.black),
+          style: GoogleFonts.poppins(letterSpacing: 2, color: isDark?Colors.white:Colors.black),
         ),
         centerTitle: true,
       ),
@@ -594,10 +596,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                               toastLength: Toast.LENGTH_LONG);
                         }
                       } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                        Navigator.pop(context);
                       }
                     }),
               )

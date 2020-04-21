@@ -6,21 +6,25 @@ import 'package:google_fonts/google_fonts.dart';
 class FAQScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    var b=MediaQuery.of(context).platformBrightness;
+    bool isDark=b==Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
         title: Text(
           "FAQs",
           style: GoogleFonts.poppins(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: isDark?Colors.white:Colors.black,
               letterSpacing: 2
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black38:Colors.white,
       ),
       body: ListView(
         children: <Widget>[

@@ -152,17 +152,22 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    var brightness=MediaQuery.of(context).platformBrightness;
+    bool isDark=brightness==Brightness.dark;
+
     return Scaffold(
+      backgroundColor: isDark?Colors.black87:Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black87:Colors.white,
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
         title: Text(
           "Global Stats".toUpperCase(),
           style: GoogleFonts.poppins(
               fontWeight: FontWeight.w900,
-              color: Colors.black,
+              color: isDark?Colors.white:Colors.black87,
               letterSpacing: 2),
         ),
         centerTitle: true,
@@ -177,7 +182,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
                   )
                 : Container(
                     padding: EdgeInsets.all(8.0),
-                    color: Colors.white,
+                    color: isDark?Colors.black87:Colors.white,
                     child: Card(
                       elevation: 10.0,
                       shape: RoundedRectangleBorder(
@@ -207,7 +212,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
                     ),
                   ),
             Container(
-              color: Colors.white,
+              color: isDark?Colors.black87:Colors.white,
               padding: EdgeInsets.all(8.0),
               child: Card(
                 elevation: 10.0,
@@ -234,7 +239,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
               ),
             ),
             Container(
-              color: Colors.white,
+              color:isDark?Colors.black87:Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               alignment: Alignment.topLeft,
               child: Text(
@@ -244,7 +249,7 @@ class _GlobalStatsScreenState extends State<GlobalStatsScreen> {
               ),
             ),
             Container(
-              color: Colors.white,
+              color: isDark?Colors.black87:Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: _globalTable(),
             )

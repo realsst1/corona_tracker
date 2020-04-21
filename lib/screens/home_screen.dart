@@ -28,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   CoronaByCountry _indiaStats;
 
+
+
   Future<CoronaByCountry> _getLiveIndiaStats() async {
     var client = http.Client();
     var url = "https://api.covid19api.com/live/country/india";
@@ -51,20 +53,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    var brightness=MediaQuery.of(context).platformBrightness;
+    bool isDark=brightness==Brightness.dark;
+
     final height = MediaQuery.of(context).size.height / 3.5;
     final width = MediaQuery.of(context).size.width / 3.5;
     return Scaffold(
       appBar: AppBar(
+        brightness: isDark?Brightness.dark:Brightness.light,
         title: Text(
           "CORONA TRACKER",
           style: GoogleFonts.poppins(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
-              color: Colors.black87,
+              color: isDark?Colors.white:Colors.black87,
               letterSpacing: 2),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black87:Colors.white,
         elevation: 0.0,
       ),
       floatingActionButton: SpeedDial(
@@ -75,18 +82,22 @@ class _HomeScreenState extends State<HomeScreen> {
         visible: true,
         closeManually: false,
         curve: Curves.bounceIn,
-        overlayColor: Colors.black,
+        overlayColor: isDark?Colors.white:Colors.black,
         overlayOpacity: 0.5,
         elevation: 8.0,
         tooltip: 'Speed Dial',
         heroTag: 'speed-dial-hero-tag',
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: isDark?Colors.black54:Colors.white,
+        foregroundColor: isDark?Colors.white:Colors.black,
         shape: CircleBorder(),
         children: [
           SpeedDialChild(
             child: Icon(Icons.email),
             label: "Email Helpline",
+              labelBackgroundColor: isDark?Colors.black38:Colors.white,
+              labelStyle: GoogleFonts.poppins(
+                  color: isDark?Colors.white:Colors.black87
+              ),
             onTap: ()async{
               if(await canLaunch("mailto:ncov2019@gov.in?subject=COVID-19 Help&body=''")){
                 await launch("mailto:ncov2019@gov.in?subject=COVID-19 Help&body=''");
@@ -99,6 +110,10 @@ class _HomeScreenState extends State<HomeScreen> {
           SpeedDialChild(
               child: Icon(Icons.phone),
               label: "Call Helpline",
+              labelBackgroundColor: isDark?Colors.black38:Colors.white,
+              labelStyle: GoogleFonts.poppins(
+                color: isDark?Colors.white :Colors.black87
+              ),
               onTap: ()async{
                 if(await canLaunch("tel:1075")){
                   await launch("tel:1075");
@@ -110,14 +125,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: isDark?Colors.black87:Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.white,
-              child: Padding(
+              color: isDark?Colors.white:Colors.black,
+              child: Container(
+                color: isDark?Colors.black:Colors.white,
                 padding: const EdgeInsets.all(8.0),
                 child: CarouselSlider(
                   autoPlay: true,
@@ -441,7 +457,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              color: Colors.white,
+              color: isDark?Colors.black87:Colors.white,
               alignment: Alignment.topLeft,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
@@ -451,6 +467,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     "India",
                     style: GoogleFonts.poppins(
                         fontSize: 24.0,
+                        color:isDark?Colors.white:Colors.black,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1),
                   ),
@@ -463,7 +480,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       "View More",
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.bold, fontSize: 16.0),
+                          fontWeight: FontWeight.bold, fontSize: 16.0,
+                        color: isDark?Colors.white:Colors.black
+                      ),
                     ),
                   )
                 ],
@@ -473,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  color: Colors.white,
+                  color: isDark?Colors.black87:Colors.white,
                   alignment: Alignment.topLeft,
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
@@ -509,7 +528,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    color: Colors.white,
+                    color: isDark?Colors.black87:Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -607,7 +626,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>GlobalStatsScreen()));
               },
               child: Container(
-                color: Colors.white,
+                color: isDark?Colors.black87:Colors.white,
                 alignment: Alignment.topRight,
                 padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 16.0),
                 child: Text(
@@ -620,18 +639,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              color: Colors.white,
+              color: isDark?Colors.black87:Colors.white,
               alignment: Alignment.topLeft,
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Text(
                 "Explore",
                 style: GoogleFonts.poppins(
+                  color: isDark?Colors.white:Colors.black87,
                     fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
               height: 260.0,
-              color: Colors.white,
+              color: isDark?Colors.black87:Colors.white,
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 16.0,

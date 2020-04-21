@@ -10,19 +10,23 @@ class MythsScreen extends StatefulWidget {
 class _MythsScreenState extends State<MythsScreen> {
   @override
   Widget build(BuildContext context) {
+
+    var b=MediaQuery.of(context).platformBrightness;
+    bool isDark=b==Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black54:Colors.white,
         title: Text(
           "Myths Buster",
           style: GoogleFonts.poppins(
             letterSpacing: 2,
-            color: Colors.black
+            color: isDark?Colors.white:Colors.black87
           ),
         ),
         centerTitle: true,
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
       ),
       body: ListView(

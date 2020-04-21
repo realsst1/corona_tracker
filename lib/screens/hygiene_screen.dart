@@ -34,20 +34,24 @@ class _HygieneScreenState extends State<HygieneScreen> {
   }
 
   Widget build(BuildContext context) {
+
+    var b=MediaQuery.of(context).platformBrightness;
+    bool isDark=b==Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
         title: Text(
             "Handwash - The Right Way",
               style: GoogleFonts.poppins(
                 letterSpacing: 2,
-                color: Colors.black
+                color: isDark?Colors.white:Colors.black87
               ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black54:Colors.white,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

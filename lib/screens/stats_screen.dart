@@ -10,17 +10,21 @@ class StatsScreen extends StatefulWidget {
 class _StatsScreenState extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
+
+    var brightness=MediaQuery.of(context).platformBrightness;
+    bool isDark=brightness==Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: isDark?Colors.black87:Colors.white,
         leading: BackButton(
-          color: Colors.black,
+          color: isDark?Colors.white:Colors.black87,
         ),
         title: Text(
           "Statistics".toUpperCase(),
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w900,
-            color: Colors.black,
+            color: isDark?Colors.white:Colors.black87,
             letterSpacing: 2
           ),
         ),
@@ -34,7 +38,7 @@ class _StatsScreenState extends State<StatsScreen> {
             Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(16.0),
-              color:Colors.white,
+              color:isDark?Colors.black87:Colors.white,
               child: Text(
                 "India Statewise",
                 style: GoogleFonts.poppins(
@@ -43,7 +47,7 @@ class _StatsScreenState extends State<StatsScreen> {
                 ),
               ),
             ),
-            Container(child: IndiaStatsScreen(),color: Colors.white,),
+            Container(child: IndiaStatsScreen(),color: isDark?Colors.black87:Colors.white,),
           ],
         ),
       ),

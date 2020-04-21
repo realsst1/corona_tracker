@@ -11,3 +11,4 @@ Corona Tracker and Information app using Flutter.
 - Directly call or email India Helpline
 - Learn to wash your hands-the right way with a video
 - Self Test for getting an idea about possibility of being affected by COVID-19
+- Dark Theme available for devices supporting(Android 10+). Automatically adapts to system theme setting.
