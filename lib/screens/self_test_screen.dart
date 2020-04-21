@@ -249,7 +249,7 @@ class _SelfTestScreenState extends State<SelfTestScreen> {
                       ),
                     )
                   : Container(
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height*1.08,
                       padding:
                           EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                       child: Card(

@@ -654,8 +654,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height*0.45,
+              height: MediaQuery.of(context).size.height*0.48,
               color: isDark?Colors.black87:Colors.white,
+              margin: EdgeInsets.only(bottom: 10.0),
               child: GridView.count(
                 crossAxisCount: 2,
                 physics: NeverScrollableScrollPhysics(),
